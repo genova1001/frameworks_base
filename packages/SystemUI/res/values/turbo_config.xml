@@ -28,4 +28,7 @@
 
     <!-- Default value how many apps show the app screenshot on slim recents view entry -->
     <integer name="expanded_items_default">2</integer>
+ 
+    <!-- Double tap anywhere in lockscreen makes the device go to sleep -->
+    <bool name="config_doubletap_lockscreen_sleep">true</bool>
 </resources>

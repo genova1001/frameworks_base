@@ -218,7 +218,9 @@ public class NotificationPanelView extends PanelView implements
     public static boolean mHeadsUpAnimatingAway;
     private boolean mLaunchingAffordance;
     private String mLastCameraLaunchSource = KeyguardBottomAreaView.CAMERA_LAUNCH_SOURCE_AFFORDANCE;
-
+    private GestureDetector mDoubleTapGesture;
+    private boolean mDoubleTapToSleepAnywhere = getResources().getBoolean(R.bool.config_doubletap_lockscreen_sleep);
+ 
     private Runnable mHeadsUpExistenceChangedRunnable = new Runnable() {
         @Override
         public void run() {
@@ -822,6 +824,10 @@ public class NotificationPanelView extends PanelView implements
     public boolean onInterceptTouchEvent(MotionEvent event) {
         if (mBlockTouches) {
             return false;
+        }
+        if (mDoubleTapToSleepAnywhere
+                && mStatusBarState == StatusBarState.KEYGUARD) {
+            mDoubleTapGesture.onTouchEvent(event);
         }
         initDownStates(event);
         if (mHeadsUpTouchHelper.onInterceptTouchEvent(event)) {
